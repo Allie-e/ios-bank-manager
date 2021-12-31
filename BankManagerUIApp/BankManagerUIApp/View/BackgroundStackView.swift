@@ -17,7 +17,7 @@ class BackgroundStackView: UIStackView {
         addArrangedSubview(waitingStatusStackView)
         waitingStatusStackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor)
         
-        let workingStatusStackView = CustomerStatusStackView(title: "업무중", bgColor: .systemBlue)
+        let workingStatusStackView = CustomerStatusStackView(title: "업무중", bgColor: .systemPurple)
         workingStatusStackView.axis = .vertical
         workingStatusStackView.distribution = .fill
         addArrangedSubview(workingStatusStackView)

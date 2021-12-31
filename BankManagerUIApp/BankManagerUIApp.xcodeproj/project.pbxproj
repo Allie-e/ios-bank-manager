@@ -27,6 +27,7 @@
 		C7694E5D259C3EA20053667F /* BankManagerUIAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E5C259C3EA20053667F /* BankManagerUIAppUITests.swift */; };
 		FBEADA35277EE3C000FD5304 /* BackgroundStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */; };
 		FBEADA37277EE67700FD5304 /* CustomerStatusStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */; };
+		FBEADA39277EF9DC00FD5304 /* CustomerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEADA38277EF9DC00FD5304 /* CustomerLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		C7694E5E259C3EA20053667F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundStackView.swift; sourceTree = "<group>"; };
 		FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStatusStackView.swift; sourceTree = "<group>"; };
+		FBEADA38277EF9DC00FD5304 /* CustomerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +110,6 @@
 				A64681F3277E9E12001C97B1 /* Customer.swift */,
 				A64681F7277E9E12001C97B1 /* Bank.swift */,
 				A64681F6277E9E12001C97B1 /* BankManager.swift */,
-				A646820A277EB05F001C97B1 /* View */,
 				A6468207277EA51B001C97B1 /* Extension */,
 				A64681F4277E9E12001C97B1 /* Protocol */,
 				A64681F8277E9E12001C97B1 /* Queue */,
@@ -148,6 +149,7 @@
 				A6468208277EAE80001C97B1 /* MainView.swift */,
 				FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */,
 				FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */,
+				FBEADA38277EF9DC00FD5304 /* CustomerLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				A64681F0277E9E12001C97B1 /* Model */,
+				A646820A277EB05F001C97B1 /* View */,
 				C7694E3A259C3E9F0053667F /* AppDelegate.swift */,
 				C7694E3C259C3E9F0053667F /* SceneDelegate.swift */,
 				C7694E3E259C3E9F0053667F /* ViewController.swift */,
@@ -349,6 +352,7 @@
 				A6468204277E9E12001C97B1 /* LinkedList.swift in Sources */,
 				FBEADA35277EE3C000FD5304 /* BackgroundStackView.swift in Sources */,
 				FBEADA37277EE67700FD5304 /* CustomerStatusStackView.swift in Sources */,
+				FBEADA39277EF9DC00FD5304 /* CustomerLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

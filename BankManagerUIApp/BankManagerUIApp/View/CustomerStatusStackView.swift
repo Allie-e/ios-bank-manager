@@ -2,6 +2,7 @@ import UIKit
 
 class CustomerStatusStackView: UIStackView {
     private var statusLabel = UILabel()
+    let customerListStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,11 +29,14 @@ class CustomerStatusStackView: UIStackView {
         addArrangedSubview(customerListScrollView)
         customerListScrollView.anchor(top: statusLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
         
-        let customerListStackView = UIStackView()
         customerListStackView.axis = .vertical
         customerListStackView.distribution = .fill
         customerListScrollView.addSubview(customerListStackView)
         customerListStackView.anchor(top: customerListScrollView.topAnchor, left: customerListScrollView.leftAnchor, bottom: customerListScrollView.bottomAnchor, right: customerListScrollView.rightAnchor)
     }
     
+    func addCustomerLabel() {
+        let customerLabel = CustomerLabel(task: "대출", waitingNumber: 5)
+        customerListStackView.addArrangedSubview(customerLabel)
+    }
 }
