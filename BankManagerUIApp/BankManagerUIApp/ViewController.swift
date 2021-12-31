@@ -12,6 +12,10 @@ class ViewController: UIViewController {
         let view = MainView(frame: frame)
         return view
     }()
+    
+    @objc func addCustomerButtonTapped() {
+        print("button tapped")
+    }
 }
 
 
