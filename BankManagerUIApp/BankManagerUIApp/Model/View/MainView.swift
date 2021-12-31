@@ -56,5 +56,11 @@ class MainView: UIView {
         timeStackView.spacing = 5
         addSubview(timeStackView)
         timeStackView.anchor(top: buttonStackView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 10)
+    
+        let backgroundStackView = BackgroundStackView()
+        backgroundStackView.axis = .horizontal
+        backgroundStackView.distribution = .fillEqually
+        addSubview(backgroundStackView)
+        backgroundStackView.anchor(top: timeStackView.bottomAnchor, left: leftAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, right: rightAnchor, paddingTop: 10)
     }
 }

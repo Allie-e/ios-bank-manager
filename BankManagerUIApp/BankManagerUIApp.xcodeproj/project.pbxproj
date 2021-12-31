@@ -25,6 +25,8 @@
 		C7694E47259C3EA20053667F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7694E45259C3EA20053667F /* LaunchScreen.storyboard */; };
 		C7694E52259C3EA20053667F /* BankManagerUIAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E51259C3EA20053667F /* BankManagerUIAppTests.swift */; };
 		C7694E5D259C3EA20053667F /* BankManagerUIAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E5C259C3EA20053667F /* BankManagerUIAppUITests.swift */; };
+		FBEADA35277EE3C000FD5304 /* BackgroundStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */; };
+		FBEADA37277EE67700FD5304 /* CustomerStatusStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		C7694E58259C3EA20053667F /* BankManagerUIAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankManagerUIAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7694E5C259C3EA20053667F /* BankManagerUIAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankManagerUIAppUITests.swift; sourceTree = "<group>"; };
 		C7694E5E259C3EA20053667F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundStackView.swift; sourceTree = "<group>"; };
+		FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStatusStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,8 @@
 				A64681F1277E9E12001C97B1 /* BankTask.swift */,
 				A64681F2277E9E12001C97B1 /* BankClerk.swift */,
 				A64681F3277E9E12001C97B1 /* Customer.swift */,
-				A64681F6277E9E12001C97B1 /* BankManager.swift */,
 				A64681F7277E9E12001C97B1 /* Bank.swift */,
+				A64681F6277E9E12001C97B1 /* BankManager.swift */,
 				A646820A277EB05F001C97B1 /* View */,
 				A6468207277EA51B001C97B1 /* Extension */,
 				A64681F4277E9E12001C97B1 /* Protocol */,
@@ -142,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				A6468208277EAE80001C97B1 /* MainView.swift */,
+				FBEADA34277EE3C000FD5304 /* BackgroundStackView.swift */,
+				FBEADA36277EE67700FD5304 /* CustomerStatusStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +347,8 @@
 				A6468201277E9E12001C97B1 /* Bank.swift in Sources */,
 				C7694E3D259C3E9F0053667F /* SceneDelegate.swift in Sources */,
 				A6468204277E9E12001C97B1 /* LinkedList.swift in Sources */,
+				FBEADA35277EE3C000FD5304 /* BackgroundStackView.swift in Sources */,
+				FBEADA37277EE67700FD5304 /* CustomerStatusStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
