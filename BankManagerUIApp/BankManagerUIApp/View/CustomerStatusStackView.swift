@@ -1,9 +1,6 @@
 import UIKit
 
 class CustomerStatusStackView: UIStackView {
-    private var statusLabel = UILabel()
-    let customerListStackView = UIStackView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -15,28 +12,42 @@ class CustomerStatusStackView: UIStackView {
     convenience init(title: String, bgColor: UIColor) {
         self.init()
         configUI()
+        configLayout()
         statusLabel.text = title
         statusLabel.backgroundColor = bgColor
     }
     
+    private var statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+    
+    private var customerListScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+    
+    var customerListStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+
+    
     func configUI() {
-        statusLabel.font = .preferredFont(forTextStyle: .title1)
-        statusLabel.textAlignment = .center
-        statusLabel.textColor = .white
+        axis = .vertical
+        spacing = 8
+        
         addArrangedSubview(statusLabel)
-        
-        let customerListScrollView = UIScrollView()
         addArrangedSubview(customerListScrollView)
-        customerListScrollView.anchor(top: statusLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
-        
-        customerListStackView.axis = .vertical
-        customerListStackView.distribution = .fill
         customerListScrollView.addSubview(customerListStackView)
-        customerListStackView.anchor(top: customerListScrollView.topAnchor, left: customerListScrollView.leftAnchor, bottom: customerListScrollView.bottomAnchor, right: customerListScrollView.rightAnchor)
     }
     
-    func addCustomerLabel() {
-        let customerLabel = CustomerLabel(task: "대출", waitingNumber: 5)
-        customerListStackView.addArrangedSubview(customerLabel)
+    func configLayout() {
+        customerListScrollView.anchor(left: leftAnchor, right: rightAnchor)
+        customerListStackView.anchor(top: customerListScrollView.topAnchor, left: customerListScrollView.leftAnchor, bottom: customerListScrollView.bottomAnchor, right: customerListScrollView.rightAnchor)
     }
 }
