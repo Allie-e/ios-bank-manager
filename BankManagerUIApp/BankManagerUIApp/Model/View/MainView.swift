@@ -23,6 +23,7 @@ class MainView: UIView {
         button.setTitle("초기화", for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.tintColor = .red
+        button.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -43,7 +44,7 @@ class MainView: UIView {
     }()
     
     func configUI() {
-        let buttonStackView = UIStackView(arrangedSubviews: [addCustomerButton,resetButton])
+        let buttonStackView = UIStackView(arrangedSubviews: [addCustomerButton, resetButton])
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         addSubview(buttonStackView)
