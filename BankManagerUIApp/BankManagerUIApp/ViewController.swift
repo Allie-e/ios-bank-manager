@@ -1,39 +1,46 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private let buttonStackView = UIStackView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setButtonStackView()
+        view.backgroundColor = .white
+        view.addSubview(mainView)
     }
     
-    func setButtonStackView() {
-        buttonStackView.axis = .horizontal
-        buttonStackView.distribution = .fillEqually
-        
-        let addCustomerButton = UIButton(type: .system)
-        addCustomerButton.setTitle("고객 10명 추가", for: .normal)
-        addCustomerButton.titleLabel?.font = .preferredFont(forTextStyle: .body)
-        
-        let resetButton = UIButton(type: .system)
-        resetButton.setTitle("초기화", for: .normal)
-        resetButton.titleLabel?.font = .preferredFont(forTextStyle: .body)
-        resetButton.tintColor = .red
-
-        buttonStackView.addArrangedSubview(addCustomerButton)
-        buttonStackView.addArrangedSubview(resetButton)
-        
-        view.addSubview(buttonStackView)
-
-        let safeArea = view.safeAreaLayoutGuide
-        
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonStackView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-        buttonStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
-        buttonStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
-    }
+    lazy var mainView: MainView = {
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        let view = MainView(frame: frame)
+        return view
+    }()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
