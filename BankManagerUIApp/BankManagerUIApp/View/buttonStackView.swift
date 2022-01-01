@@ -21,7 +21,8 @@ class ButtonStackView: UIStackView {
         let button = UIButton(type: .system)
         button.setTitle("초기화", for: .normal)
         button.tintColor = .red
-        button.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
+        let selector = #selector(ViewController.resetButtonTapped)
+        button.addTarget(self, action: selector, for: .touchUpInside)
         return button
     }()
     

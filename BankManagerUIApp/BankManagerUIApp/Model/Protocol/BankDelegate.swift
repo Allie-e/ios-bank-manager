@@ -1,3 +1,3 @@
 protocol BankDelegate: AnyObject {
-    func didFinishWork(totalCustomer: Int, workingTime: Double)
+    func didEnqueueCustomer(customer: Customer)
 }

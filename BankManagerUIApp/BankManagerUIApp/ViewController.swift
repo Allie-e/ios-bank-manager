@@ -1,6 +1,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let bank = Bank()
+    private var bankClerk: BankClerk?
+    
     private var timer = Timer()
     private var timerStatus: TimerStatus = .start
     private var startTime = Date()
@@ -13,6 +16,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: .finishWork, object: nil)
+        bank.delegate = self
+        bankClerk = bank.bankClerk
+        bankClerk?.delegate = self
         setUI()
     }
     
@@ -67,14 +74,7 @@ extension ViewController {
             timerStatus = .stop
             startTime = Date()
             timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
-            DispatchQueue.main.async { [self] in
-                for _ in 1...50 {
-                    let dd = UILabel()
-                    dd.text = "dqwe"
-                    workingLineStackView.customerListStackView.addArrangedSubview(dd)
-                }
-            }
-
+            bank.start()
         case .stop:
             return
         }
@@ -84,6 +84,10 @@ extension ViewController {
         timerStatus = .start
         timer.invalidate()
         resetTimerLabel()
+    }
+    
+    @objc func stopTimer() {
+        timer.invalidate()
     }
     
     @objc private func startTimer() {
@@ -115,7 +119,38 @@ extension ViewController {
     }
 }
 
+extension ViewController: BankClerkDelegate {
+    func bankClerkStartWork(waitingNumber: Int, task: String) {
+        DispatchQueue.main.async { [self] in
+            let customer = waitingLineStackView.removeLabel()
+            customer.removeFromSuperview()
 
+            workingLineStackView.addLabel(customer)
+        }
+    }
+    
+    func bankClerkFinishWork(waitingNumber: Int, task: String) {
+        DispatchQueue.main.async { [self] in
+            let customer = workingLineStackView.removeLabel()
+            customer.removeFromSuperview()
+        }
+    }
+}
+
+extension ViewController: BankDelegate {
+    func didEnqueueCustomer(customer: Customer) {
+        DispatchQueue.main.async {
+            guard let task = customer.task?.name else {
+                return
+            }
+            self.waitingLineStackView.addLabel(CustomerLabel(task: task, waitingNumber: customer.waitingNumber))
+        }
+    }
+}
+
+extension Notification.Name {
+    static let finishWork = Notification.Name("finishWork")
+}
 
 
 

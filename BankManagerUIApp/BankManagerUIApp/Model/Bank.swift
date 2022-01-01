@@ -2,38 +2,35 @@ import Foundation
 
 class Bank {
     private var waitingLine = Queue<Customer>()
-    private var bankClerk = BankClerk()
-    
+    let bankClerk = BankClerk()
     weak var delegate: BankDelegate?
-
+    
     private let depositQueue = DispatchQueue(label: "depositQueue", attributes: .concurrent)
     private let loanQueue = DispatchQueue(label: "loanQueue")
     private let sequenceQueue = DispatchQueue(label: "sequenceQueue")
-    
+    private let workGroup = DispatchGroup()
+    private let semaphore = DispatchSemaphore(value: 2)
+
     private var totalCustomer = 0
     
-    func setWaitingLine(with numberOfCustomer: Int) {
-        let totalNumber = numberOfCustomer
-        for number in 1...totalNumber {
-            waitingLine.enqueue(Customer(waitingNumber: number))
+    func setWaitingLine() {
+        for number in 1...10 {
+            let customer = Customer(waitingNumber: number)
+            waitingLine.enqueue(customer)
+            delegate?.didEnqueueCustomer(customer: customer)
         }
     }
-    
+
     private func dequeueWaitingLine() -> Customer? {
         return waitingLine.dequeue()
     }
     
     func start() {
-        let date = Date()
+        setWaitingLine()
         work()
-        let taskTime = abs(date.timeIntervalSinceNow)
-        finishWork(workingTime: taskTime)
     }
     
     private func work() {
-        let workGroup = DispatchGroup()
-        let semaphore = DispatchSemaphore(value: 2)
-        
         while waitingLine.isEmpty == false {
             guard let customer = dequeueWaitingLine() else {
                 fatalError("unknown error")
@@ -58,11 +55,8 @@ class Bank {
                 return
             }
         }
-        workGroup.wait()
-    }
-    
-    private func finishWork(workingTime: Double) {
-        delegate?.didFinishWork(totalCustomer: totalCustomer, workingTime: workingTime)
-        totalCustomer = 0
+        workGroup.notify(queue: .main) {
+            NotificationCenter.default.post(name: .finishWork, object: nil)
+        }
     }
 }

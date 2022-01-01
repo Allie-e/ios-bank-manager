@@ -37,7 +37,7 @@ class CustomerStatusStackView: UIStackView {
     }()
 
     
-    func configUI() {
+    private func configUI() {
         axis = .vertical
         spacing = 8
         
@@ -46,8 +46,19 @@ class CustomerStatusStackView: UIStackView {
         customerListScrollView.addSubview(customerListStackView)
     }
     
-    func configLayout() {
+    private func configLayout() {
         customerListScrollView.anchor(left: leftAnchor, right: rightAnchor)
         customerListStackView.anchor(top: customerListScrollView.topAnchor, left: customerListScrollView.leftAnchor, bottom: customerListScrollView.bottomAnchor, right: customerListScrollView.rightAnchor)
+    }
+    
+    func addLabel(_ label: UILabel) {
+        customerListStackView.addArrangedSubview(label)
+    }
+    
+    func removeLabel() -> UILabel {
+        guard let customerLabel = customerListStackView.arrangedSubviews.first as? UILabel else {
+            fatalError()
+        }
+        return customerLabel
     }
 }

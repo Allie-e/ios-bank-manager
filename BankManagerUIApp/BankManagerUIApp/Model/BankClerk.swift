@@ -1,13 +1,15 @@
 import Foundation
 
-struct BankClerk {
+class BankClerk {
+    weak var delegate: BankClerkDelegate?
+    
     func handleTask(of customer: Customer) {
         guard let task = customer.task?.name, let taskTime = customer.task?.processingTime else {
             return
         }
         
-        print("\(customer.waitingNumber)번 고객 \(task)업무 시작")
+        delegate?.bankClerkStartWork(waitingNumber: customer.waitingNumber, task: task)
         Thread.sleep(forTimeInterval: taskTime)
-        print("\(customer.waitingNumber)번 고객 \(task)업무 종료")
+        delegate?.bankClerkFinishWork(waitingNumber: customer.waitingNumber, task: task)
     }
 }
