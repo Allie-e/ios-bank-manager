@@ -7,12 +7,11 @@
 
 **Index**
 
-- [Preview](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#Preview)
-- [Ground Rule](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#GroundRule)
-- [Time Line](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#TimeLine)
-- [Step1](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#Step1)
-- [Step2](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#Step2)
-- [Step3](notion://www.notion.so/6-777fb75eddc542e2bff5b9b3a85093a3?p=06065f3a4af0482697ca4e90b4d44b17#Step3)
+- [Preview](#Preview)
+- [Ground Rule](#GroundRule)
+- [Step1](#Step1)
+- [Step2](#Step2)
+- [Step3](#Step3)
 
 </br>
 
@@ -57,6 +56,8 @@
 - 구현 전 **Issue**를 생성하며 요구사항에 대해 한번 더 생각해본다.
 
 </br>
+
+<a name="Step1"></a>
 
 # Step 1
 
@@ -139,6 +140,8 @@ func removeFirst() -> T? {
 - 테스트하려는 타입의 인스턴스 프로퍼티에 접근제어를 주었는데, 이는 외부에서 사용하는 것을 막기 위해 설정하였음
 - Unit Test 진행시 해당 프로퍼티에 접근하여 테스트를 해야하는데, 접근제어가 설정되어 있으므로 테스트 하지 못하는 문제가 발생
 - 그럴 땐 Mock 타입 생성 후 해당 타입을 테스트만을 위해 사용하면 됨 이로써 Mock의 원본 타입은 본래 상태 유지
+
+<a name="Step2"></a>
 
 # **2️⃣ Step 2**
 
@@ -246,6 +249,8 @@ Bank의 업무 마감을 알리는 출력문을 구현할 때, 몇 명의 고객
 ### Naming 중요성
 
 [https://www.swift.org/documentation/api-design-guidelines/#naming](https://www.swift.org/documentation/api-design-guidelines/#naming)
+
+<a name="Step3"></a>
 
 # 3️⃣ Step 3
 
