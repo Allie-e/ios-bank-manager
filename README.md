@@ -59,7 +59,7 @@
 
 <a name="Step1"></a>
 
-# Step 1
+# 1️⃣ Step 1
 
 ## **🎯** Step1 구현 내용
 
@@ -68,6 +68,8 @@
 1. 우리가 넣어줄 인덱스에 원래 위치했던 노드를 임시 변수에 저장(복사)하고, 원래 위치했던 노드에 우리가 넣어줄 노드를 넣음
 2. 우리가 원하는 값을 넣은 노드를 넣고싶은 인덱스의 다음 노드로 임시 변수에 저장했던 노드를 설정 (원래 해당 인덱스에 위치했던 노드)
 3. 새로운 노드가 들어갔으므로, prev와 next를 양 노드에 연결
+
+</br>
 
 ### LinkedList removeFirst() 메소드 변경
 
@@ -111,7 +113,9 @@ func removeFirst() -> T? {
     }
 ```
 
-### `@discardableResult`
+</br>
+
+### @discardableResult
 
 `removeFirst()` 의 테스트를 진행하며 반환 값을 사용할 필요가 없다고 생각되어`@discardableResult` 키워드를 붙임
 
@@ -126,6 +130,8 @@ func removeFirst() -> T? {
 이를 개선하고자 **양방향 연결리스트**로 수정 
 
 양방향으로 연결하여 `append()`를 할 때, 모든 node를 순회하지 않고 바로 tail을 찾기때문에 단방향의 단점(많은 비용(순회))을 보완
+
+</br>
 
 ### Node, LinkedList struct vs class
 
@@ -184,7 +190,9 @@ func work(_ waitingLine: inout Queue<Customer>) {
 - 함수 외부의 프로퍼티를 변경하며 사용하기위해선 `inout Parameter`를 사용해야 함
 - 필자들은 이로인해 가독성이 떨어져 보인다는 생각이 들었고, 각 타입의 역할을 더 분명히 한다면 이를 해결할 수 있을 것이라 생각하였고 코드 검토 결과, 기존에 은행의 일로 설계한 일을 직원이 하고있었고 이를 은행이 일을 한 뒤, 일의 결과를 직원이 받아 처리하는 로직으로 변경하였음
 
-## **인스턴스 프로퍼티? 지역변수?**
+</br>
+
+### **인스턴스 프로퍼티? 지역변수?**
 
 Bank의 업무 마감을 알리는 출력문을 구현할 때, 몇 명의 고객을 받았는지 알아야 했음
 
@@ -309,6 +317,7 @@ case .deposit:
        semaphore.signal()
     }
 ```
+</br>
 
 ### 고객 대기열 오름차순 처리
 
@@ -355,7 +364,9 @@ depositQueue - Concurrent Queue
 
 그 결과 이는 GCD의 영역이며, 우리는 `sequenceQueue.async { }` Serial하게 `depositQueue.async(group: workGroup)`코드를 실행시켜서 순서대로 처리하게 만들기만 하면 되는 것임을 알았음
 
-## Delegate
+</br>
+
+### Delegate
 
 ```swift
 private func finishWork(workingTime: Double) {
@@ -366,7 +377,9 @@ private func finishWork(workingTime: Double) {
 
 은행의 일이 끝나면 은행 마감되었다고 알려주는 것은 `BankManager`의 역할이 아닐까 하는 고민을 하였고, 이를 해결하기위해 **delegation pattern**을 활용하여 은행의 업무가 끝날시 매니저에게 은행 업무가 끝났다고 알리고, 매니저가 마감 메세지를 출력해주는 방식을 채택하였음
 
-## 구조체 내부 메소드의 클로저는 내부 프로퍼티를 수정할 수 없는 문제
+</br>
+
+### 구조체 내부 메소드의 클로저는 내부 프로퍼티를 수정할 수 없는 문제
 
 Bank 타입이 구조체인 경우 내부 메소드 안의 탈출 클로저는 값을 캡처할 수 없었다.
 
