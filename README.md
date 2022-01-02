@@ -397,3 +397,180 @@ Bank 타입이 구조체인 경우 내부 메소드 안의 탈출 클로저는 �
 - GCD
 - 스레드
 - 클로저 캡쳐
+
+
+# 4️⃣ Step4
+
+## 📷 Step 4 UI
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/548d008f-3cc0-41f2-bf8e-290df826ae90/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220102%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220102T091254Z&X-Amz-Expires=86400&X-Amz-Signature=1390d2ca5fac65026cbe69885a6a6b4eed6f2c3bfe51e9156d5760367769f97f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+- ButtonStackView - Button x2
+- TimerStackView - Label x2
+- CustomerStatusStackView - StatusLabel + ScrollView + CustomerListStackView
+- CustomerListStackView - CustomerLabel
+
+## **🎯** Step4 구현 내용
+
+### 코드로 레이아웃 구현
+
+```swift
+extension UIView {
+    func anchor(top: NSLayoutYAxisAnchor? = nil,
+                left: NSLayoutXAxisAnchor? = nil,
+                bottom: NSLayoutYAxisAnchor? = nil,
+                right: NSLayoutXAxisAnchor? = nil,
+                paddingTop: CGFloat = 0,
+                paddingLeft: CGFloat = 0,
+                paddingBottom: CGFloat = 0,
+                paddingRight: CGFloat = 0,
+                width: CGFloat? = nil,
+                height: CGFloat? = nil) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+        }
+        
+        if let left = left {
+            leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+        }
+        
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
+        }
+        
+        if let right = right {
+            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+        }
+        
+        if let width = width {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        if let height = height {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+    }
+}
+```
+
+UIView의 Extension을 구현하여 해당 메소드를 생성
+
+이를 통해 레이아웃 설정 코드가 간결해지고 깔끔해보이는 효과가 있었다.
+
+스크롤을 위해 스크롤 뷰 위에 얹어지는 스택뷰의 크기를 스크롤뷰에 맞춤
+
+```swift
+class CustomerStatusStackView: UIStackView {
+		private func configLayout() {
+        customerListScrollView.anchor(left: leftAnchor, right: rightAnchor)
+        customerListStackView.anchor(top: customerListScrollView.topAnchor, left: customerListScrollView.leftAnchor, bottom: customerListScrollView.bottomAnchor, right: customerListScrollView.rightAnchor)
+    }
+}
+```
+
+### 커스텀 뷰를 구현하여 해당 뷰 재사용
+
+```swift
+class CustomerLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(task: String, waitingNumber: Int) {
+        self.init()
+        configUI()
+        setText(waitingNumber, task)
+    }
+}
+
+class CustomerStatusStackView: UIStackView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) hastitlenot been implemented")
+    }
+    
+    convenience init(title: String, bgColor: UIColor) {
+        self.init()
+        configUI()
+        configLayout()
+        statusLabel.text = title
+        statusLabel.backgroundColor = bgColor
+    }
+}
+```
+
+`convenience init` 을 구현하여 파라미터로 타이틀과 백그라운드 색 등을 받아 재사용할 수 있게 구현
+
+### Timer 구현
+
+고객 추가 버튼의 이벤트를 받았을 때 타이머가 시작되고, 고객의 일처리가 모두 종료되었을 때 타이머가 멈추도록 구현
+
+## **🤔** Step4 고민했던 점
+
+### 직원이 고객의 일을 처리 시작하고 종료되었을 때의 동작 구현
+
+뷰컨트롤러가 `BankClerk` 의 delegate이다.
+
+- Delegate pattern을 사용하여 직원이 일을 처리하기 시작하였을 때 뷰에 `CustomerLabel`을 추가해주도록 구현
+- Delegate pattern을 사용하여 직원이 일처리를 종료하였을 때 뷰의 `CustomerLabel`을 삭제해주도록 구현
+
+```swift
+extension ViewController: BankClerkDelegate {
+    func bankClerkStartWork(waitingNumber: Int, task: String) {
+        DispatchQueue.main.async { [self] in
+        let customer = waitingLineStackView.removeLabel()
+        customer.removeFromSuperview()
+
+        workingLineStackView.addLabel(customer)
+        }
+    }
+    
+    func bankClerkFinishWork(waitingNumber: Int, task: String) {
+        DispatchQueue.main.async { [self] in
+            let customer = workingLineStackView.removeLabel()
+            customer.removeFromSuperview()
+        }
+    }
+}
+
+class BankClerk {
+		delegate?.bankClerkStartWork(waitingNumber: customer.waitingNumber, task: task)
+    Thread.sleep(forTimeInterval: taskTime)
+    delegate?.bankClerkFinishWork(waitingNumber: customer.waitingNumber, task: task)
+}
+```
+
+### 고객의 일처리가 종료되었을 때 할 동작 구현
+
+`Bank` 에서의 일처리가 종료되었을 때 `ViewController`에서 이벤트를 받아 타이머를 종료시키고, `View`를 업데이트해야했다.
+
+```swift
+class ViewController: UIViewController {
+		override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: .finishWork, object: nil
+    }
+
+		@objc func stopTimer() {
+        timer.invalidate()
+    }
+}
+
+class Bank {
+		workGroup.notify(queue: .main) {
+        NotificationCenter.default.post(name: .finishWork, object: nil)
+    }
+}
+```
+
+고객의 일을 처리하는 직원들은 비동기로 일을 처리하고, 이들을 `Group`으로 묶어 해당 비동기 동작이 종료되었을때 동작을 정의할 수 있는 `DispatchGroup.notify()` 를 구현하여 `ViewController`의 `NotificationCenter`에 `Notification`을 `Post`하게끔 구현
